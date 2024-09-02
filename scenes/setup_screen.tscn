@@ -1,0 +1,51 @@
+[gd_scene load_steps=2 format=3 uid="uid://jtp8mj5j3bfu"]
+
+[ext_resource type="Script" path="res://scripts/setup_screen.gd" id="1_l0wei"]
+
+[node name="SetupScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_l0wei")
+
+[node name="StartButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 670.0
+offset_top = 150.0
+offset_right = 763.0
+offset_bottom = 225.0
+text = "START"
+
+[node name="ShowCredits" type="Button" parent="."]
+layout_mode = 0
+offset_left = 533.0
+offset_top = 531.0
+offset_right = 609.0
+offset_bottom = 591.0
+text = "CREDITS"
+
+[node name="MusicVolumeHSlider" type="HSlider" parent="."]
+layout_mode = 0
+offset_left = 487.0
+offset_top = 455.0
+offset_right = 654.0
+offset_bottom = 542.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MusicVolumeHSlider"]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 5.0
+offset_right = 205.0
+offset_bottom = 49.0
+text = "Music volume"
+
+[node name="NumPlayersOptionButton" type="OptionButton" parent="."]
+layout_mode = 0
+offset_left = 422.0
+offset_top = 182.0
+offset_right = 467.0
+offset_bottom = 202.0
+
+[node name="SubViewport" type="SubViewport" parent="."]
+size = Vector2i(1000, 1000)

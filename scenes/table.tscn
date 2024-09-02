@@ -1,0 +1,96 @@
+[gd_scene load_steps=6 format=3 uid="uid://d1o52f55ub4qm"]
+
+[ext_resource type="Script" path="res://scripts/table.gd" id="1_0jurv"]
+[ext_resource type="Texture2D" uid="uid://cbmgas5f1uie5" path="res://art/table.png" id="2_mddhc"]
+[ext_resource type="Texture2D" uid="uid://cvl5g1jfm44md" path="res://art/roll_dice_button.png" id="3_lqvaw"]
+[ext_resource type="Texture2D" uid="uid://cx6uwgxgqybvg" path="res://art/keep_score_button.png" id="4_g4kqc"]
+[ext_resource type="Texture2D" uid="uid://cr8vus0nkyqw1" path="res://art/hot_dice.png" id="5_76pr5"]
+
+[node name="Table" type="Node2D"]
+script = ExtResource("1_0jurv")
+
+[node name="Table" type="Sprite2D" parent="."]
+position = Vector2(575.5, 324)
+scale = Vector2(1.00087, 0.996923)
+texture = ExtResource("2_mddhc")
+
+[node name="NumPlayersSpinBox" type="SpinBox" parent="."]
+visible = false
+offset_left = 70.0
+offset_top = 113.0
+offset_right = 153.062
+offset_bottom = 144.0
+min_value = 2.0
+max_value = 4.0
+value = 2.0
+
+[node name="DiceLabel" type="Label" parent="."]
+offset_left = 283.0
+offset_top = 306.0
+offset_right = 357.0
+offset_bottom = 329.0
+scale = Vector2(2, 2)
+text = "dice"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CurrentPlayerLabel" type="Label" parent="."]
+offset_left = 6.0
+offset_top = 43.0
+offset_right = 126.0
+offset_bottom = 79.0
+scale = Vector2(2, 2)
+text = "Current player:"
+horizontal_alignment = 2
+
+[node name="TurnScoreLabel" type="Label" parent="."]
+offset_left = 391.0
+offset_top = 182.0
+offset_right = 475.0
+offset_bottom = 205.0
+scale = Vector2(2, 2)
+text = "turn score:"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="AvailableDiceLabel" type="Label" parent="."]
+offset_left = 410.0
+offset_top = 559.0
+offset_right = 515.0
+offset_bottom = 582.0
+scale = Vector2(2, 2)
+text = "available dice"
+
+[node name="ScoresLabel" type="Label" parent="."]
+offset_left = 764.0
+offset_top = 29.0
+offset_right = 814.0
+offset_bottom = 52.0
+scale = Vector2(2, 2)
+text = "scores"
+
+[node name="ThrowButton" type="Button" parent="."]
+offset_left = 756.0
+offset_top = 503.0
+offset_right = 864.0
+offset_bottom = 611.0
+icon = ExtResource("3_lqvaw")
+
+[node name="KeepScoreButton" type="Button" parent="."]
+offset_left = 864.0
+offset_top = 503.0
+offset_right = 972.0
+offset_bottom = 611.0
+icon = ExtResource("4_g4kqc")
+
+[node name="NeedMorePoints" type="RichTextLabel" parent="."]
+offset_left = 329.0
+offset_top = 434.0
+offset_right = 517.0
+offset_bottom = 510.0
+scale = Vector2(2, 2)
+text = "You need 750 points to get on the score board!"
+
+[node name="HotDiceSprite" type="Sprite2D" parent="."]
+position = Vector2(1019, 310)
+texture = ExtResource("5_76pr5")
