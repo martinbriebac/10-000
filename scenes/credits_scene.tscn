@@ -1,0 +1,27 @@
+[gd_scene load_steps=2 format=3 uid="uid://xjn45ymc2y12"]
+
+[ext_resource type="Script" path="res://scenes/credits_scene.gd" id="1_w5ei8"]
+
+[node name="Credits_scene" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_w5ei8")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 472.0
+offset_top = 196.0
+offset_right = 1375.0
+offset_bottom = 761.0
+text = "Credits"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 410.0
+offset_top = 286.0
+offset_right = 990.0
+offset_bottom = 694.0
+text = "Game developed by loco_piola
+Art by loco_piola
+Music by loco_piola
+Special thanks to coco, pepi y la vieja"

@@ -1,13 +1,13 @@
 [gd_scene load_steps=2 format=3 uid="uid://jtp8mj5j3bfu"]
 
-[ext_resource type="Script" path="res://scripts/setup_screen.gd" id="1_l0wei"]
+[ext_resource type="Script" path="res://scripts/setup_scene.gd" id="1_eqidk"]
 
-[node name="SetupScreen" type="Control"]
+[node name="Setup_scene" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
-script = ExtResource("1_l0wei")
+script = ExtResource("1_eqidk")
 
 [node name="StartButton" type="Button" parent="."]
 layout_mode = 0
@@ -49,3 +49,5 @@ offset_bottom = 202.0
 
 [node name="SubViewport" type="SubViewport" parent="."]
 size = Vector2i(1000, 1000)
+
+[connection signal="pressed" from="ShowCredits" to="." method="_on_CreditsButton_pressed"]

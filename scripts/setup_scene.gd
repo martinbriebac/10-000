@@ -32,9 +32,12 @@ func _on_StartGameButton_pressed():
 func _on_CreditsButton_pressed():
 	# Show the credits screen
 	print("Showing credits screen")
-	# Add code to show the credits screen here
+	var credits_scene = load("res://scenes/credits_scene.tscn")
+	get_tree().get_root().add_child(credits_scene.instance())
+	self.hide()
 
 func _on_MusicVolumeHSlider_value_changed(value):
 	music_volume = value
 	print("Music volume set to: ", music_volume)
 	# Add code to update the music volume here
+
