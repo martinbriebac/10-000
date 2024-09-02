@@ -7,7 +7,7 @@ var music_volume = 0.5
 
 func _ready():
 	var viewport = get_viewport()
-	viewport.set_size(Vector2(2300, 1296))
+	viewport.set_size(Vector2(2300, 1295))
 	
 	# Initialize the number of players dropdown
 	$NumPlayersOptionButton.add_item("1 Player")
