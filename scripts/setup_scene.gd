@@ -32,7 +32,7 @@ func _on_NumPlayersOptionButton_item_selected(index):
 	num_players = index + 1
 	print("Number of players selected: ", num_players)
 
-func _on_StartGameButton_pressed():
+func _on_Button_pressed():
 	# Start the game with the selected number of players
 	print("Starting game with ", num_players, " players")
 	# Add code to start the game here

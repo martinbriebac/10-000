@@ -34,4 +34,6 @@ offset_right = 520.0
 offset_bottom = 457.0
 text = "Back"
 
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
 [connection signal="pressed" from="Back" to="." method="_on_back_pressed"]
