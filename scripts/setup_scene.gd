@@ -18,6 +18,9 @@ func _ready() -> void:
 
 	# Initialize the music volume slider
 	$MusicVolumeHSlider.value = music_volume
+	
+	# Connect the button to the function
+	$StartButton.connect("pressed", Callable(self, "_on_StartGameButton_pressed"))
 
 	# Disconnect the button to the function
 	$ShowCredits.disconnect("pressed", Callable(self, "_on_CreditsButton_pressed"))
@@ -33,7 +36,7 @@ func _on_StartGameButton_pressed():
 	# Start the game with the selected number of players
 	print("Starting game with ", num_players, " players")
 	# Add code to start the game here
-	get_tree().change_scene("res://table.tscn")
+	get_tree().change_scene_to_file("res://scenes/table.tscn")
 
 func _on_CreditsButton_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/credits_scene.tscn")

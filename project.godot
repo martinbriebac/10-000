@@ -10,8 +10,8 @@ config_version=5
 
 [application]
 
-config/name="10,000"
-run/main_scene="res://scenes/table.tscn"
+config/name="10k-the-game"
+run/main_scene="res://scenes/setup_scene.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 config/icon="res://icon.svg"
 
