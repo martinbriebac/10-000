@@ -249,11 +249,14 @@ func update_display():
 	$ScoresLabel.text = scores_text
 	
 	# Update dice visuals
-	for i in range(6):
-		if i < available_dice:
-			dice_instances[i].visible = true
-			dice_instances[i].get_node("Sprite2D").tecture = dice_instances[i].dice_faces[dice_values[i] - 1]
-		else:
+	var dice_count = min(dice_instances.size(), 6)  # Ensure we don't exceed the number of actual dice instances
+	for i in range(dice_count):
+		if i < dice_values.size():
+			if dice_instances[i]:
+				dice_instances[i].visible = true
+				if dice_instances[i].has_node("Sprite2D") and dice_instances[i].dice_faces.size() > dice_values[i] - 1:
+					dice_instances[i].get_node("Sprite2D").texture = dice_instances[i].dice_faces[dice_values[i] - 1]
+		elif dice_instances[i]:
 			dice_instances[i].visible = false
 
 func end_turn(busted: bool):

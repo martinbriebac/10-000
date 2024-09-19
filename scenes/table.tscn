@@ -96,13 +96,19 @@ position = Vector2(1019, 310)
 texture = ExtResource("5_76pr5")
 
 [node name="DiePosition1" type="Node2D" parent="."]
+position = Vector2(421, 316)
 
 [node name="DiePosition2" type="Node2D" parent="."]
+position = Vector2(468, 378)
 
 [node name="DiePosition3" type="Node2D" parent="."]
+position = Vector2(528, 316)
 
 [node name="DiePosition4" type="Node2D" parent="."]
+position = Vector2(593, 380)
 
 [node name="DiePosition5" type="Node2D" parent="."]
+position = Vector2(641, 314)
 
 [node name="DiePosition6" type="Node2D" parent="."]
+position = Vector2(717, 380)

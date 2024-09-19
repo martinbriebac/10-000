@@ -6,7 +6,7 @@ var is_rolling = false
 var roll_speed = 0.05
 var roll_duration = 1.0
 var roll_timer = 0.0
-
+var rotation_speed = 5.0 # Rotation speed in radians per second
 
 signal roll_completed(value)
 
@@ -16,7 +16,7 @@ func _ready():
 		dice_faces.append(load("res://art/dice_face_" + str(i) +".png"))
 	
 	# Set initial face
-	$Sprite2D.texture = dice_faces[0]
+	$die_face.texture = dice_faces[0]
 
 func _process(delta):
 	if is_rolling:
@@ -24,7 +24,7 @@ func _process(delta):
 		if roll_timer >= roll_speed:
 			roll_timer = 0
 			current_face = (current_face+1) % 6
-			$Sprite2D.texture = dice_faces[current_face]
+			$die_face.texture = dice_faces[current_face]
 		
 		if roll_timer >= roll_duration:
 			is_rolling = false

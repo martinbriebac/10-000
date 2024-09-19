@@ -1,8 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://b276n5n5mf4jt"]
+[gd_scene load_steps=3 format=3 uid="uid://b276n5n5mf4jt"]
 
 [ext_resource type="Script" path="res://scripts/die.gd" id="1_wiqql"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_ae3bc"]
 
 [node name="die" type="Node2D"]
 script = ExtResource("1_wiqql")
 
 [node name="die_face" type="Sprite2D" parent="."]
+texture = SubResource("ImageTexture_ae3bc")
