@@ -18,7 +18,9 @@ func _ready() -> void:
 
 	# Initialize the music volume slider
 	$MusicVolumeHSlider.value = music_volume
-	
+
+	# Disconnect the button to the function
+	$StartButton.disconnect("pressed", Callable(self, "_on_StartGameButton_pressed"))	
 	# Connect the button to the function
 	$StartButton.connect("pressed", Callable(self, "_on_StartGameButton_pressed"))
 
