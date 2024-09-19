@@ -8,10 +8,14 @@ var throw_score = 0
 var available_dice = 6
 var hot_dice = false
 var turn_score = 0
+var dice_instances = []
+var rolls_completed = 0
+
 const TARGET_SCORE = 10000
 const INITIAL_THRESHOLD = 750
 const MIN_PLAYERS = 2
 const MAX_PLAYERS = 4
+
 
 class Player:
 	var name: String
@@ -28,6 +32,15 @@ func _ready():
 	$KeepScoreButton.pressed.connect(_on_KeepScoreButton_pressed)
 	$KeepScoreButton.hide()
 	setup_game()
+	
+	# Create dice instances
+	for i in range(6):
+		var die = preload("res://scenes/die.tscn").instantiate()
+		die.position = get_node("DiePosition" + str(i+1)).position
+		add_child(die)
+		dice_instances.append(die)
+		die.connect("roll_completed", Callable(self, "_on_die_roll_completed"))
+
 
 func _unhandled_input(event):
 	if event.is_action_pressed("throw_dice") and $ThrowButton.visible:
@@ -53,28 +66,55 @@ func _on_ThrowButton_pressed():
 
 	throw_dice()
 	$NeedMorePoints.hide()
-	print("Dice rolled: " + str(dice_values))
-	var result = calculate_score()
-	throw_score = result[0]
-	var instant_win = result[1]
-	print("Throw score: " + str(throw_score))
+	# Hide the throw button during animation
+	$ThrowButton.hide()
+	$KeepScoreButton.hide()
+
+func throw_dice():
+	dice_values.clear()
+	rolls_completed = 0
 	
-	if instant_win:
-		print("Instant win! " + players[current_player_index].name + " rolled six of a kind!")
-		end_game(true)
-	elif throw_score == 0:
-		print("No scoring dice. Turn score lost!")
-		end_turn(true)
-	else:
-		turn_score += throw_score
-		print("Current turn score: " + str(turn_score))
-		update_display()
-		$KeepScoreButton.show()
-		if hot_dice:
-			$HotDiceSprite.show()
-			print("Hot dice! You can throw all 6 dice again!")
+	for i in range(available_dice):
+		var roll_value = rng.randi_range(1, 6)
+		dice_values.append(roll_value)
+		dice_instances[i].roll(roll_value)
+		dice_instances[i].visible = true
+	
+	# Hide unused dice
+	for i in range(available_dice, 6):
+		dice_instances[i].visible = false
 	
 
+func _on_dice_roll_completed():
+	rolls_completed += 1
+	
+	# Check if all dice have finished rolling
+	if rolls_completed == available_dice:
+		print("Dice rolled: " + str(dice_values))
+		var result = calculate_score()
+		throw_score = result[0]
+		var instant_win = result[1]
+		print("Throw score: " + str(throw_score))
+	
+		if instant_win:
+			print("Instant win! " + players[current_player_index].name + " rolled six of a kind!")
+			end_game(true)
+		elif throw_score == 0:
+			print("No scoring dice. Turn score lost!")
+			end_turn(true)
+		else:
+			turn_score += throw_score
+			print("Current turn score: " + str(turn_score))
+			update_display()
+			$KeepScoreButton.show()
+			if hot_dice:
+				$HotDiceSprite.show()
+				print("Hot dice! You can throw all 6 dice again!")
+		
+		# Show the throw button again
+		$ThrowButton.show()
+		
+		update_display()
 
 func _on_KeepScoreButton_pressed():
 	if players.is_empty() or current_player_index >= players.size():
@@ -105,10 +145,6 @@ func _on_KeepScoreButton_pressed():
 	else:
 		end_turn(false)
 
-func throw_dice():
-	dice_values.clear()
-	for i in range(available_dice):
-		dice_values.append(rng.randi_range(1, 6))
 
 func calculate_score():
 	@warning_ignore("shadowed_variable")
@@ -211,6 +247,14 @@ func update_display():
 	for player in players:
 		scores_text += player.name + ": " + str(player.score) + "\n"
 	$ScoresLabel.text = scores_text
+	
+	# Update dice visuals
+	for i in range(6):
+		if i < available_dice:
+			dice_instances[i].visible = true
+			dice_instances[i].get_node("Sprite2D").tecture = dice_instances[i].dice_faces[dice_values[i] - 1]
+		else:
+			dice_instances[i].visible = false
 
 func end_turn(busted: bool):
 	if busted:

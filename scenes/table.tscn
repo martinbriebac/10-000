@@ -94,3 +94,15 @@ text = "You need 750 points to get on the score board!"
 [node name="HotDiceSprite" type="Sprite2D" parent="."]
 position = Vector2(1019, 310)
 texture = ExtResource("5_76pr5")
+
+[node name="DiePosition1" type="Node2D" parent="."]
+
+[node name="DiePosition2" type="Node2D" parent="."]
+
+[node name="DiePosition3" type="Node2D" parent="."]
+
+[node name="DiePosition4" type="Node2D" parent="."]
+
+[node name="DiePosition5" type="Node2D" parent="."]
+
+[node name="DiePosition6" type="Node2D" parent="."]

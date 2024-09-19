@@ -18,4 +18,19 @@ func _ready():
 	# Set initial face
 	$Sprite2D.texture = dice_faces[0]
 
+func _process(delta):
+	if is_rolling:
+		roll_timer += delta
+		if roll_timer >= roll_speed:
+			roll_timer = 0
+			current_face = (current_face+1) % 6
+			$Sprite2D.texture = dice_faces[current_face]
+		
+		if roll_timer >= roll_duration:
+			is_rolling = false
+			emit_signal("roll_completed", current_face + 1)
 
+func roll(final_value):
+	is_rolling = true
+	roll_timer = 0.0
+	current_face = final_value - 1   # Adjust for 0-based array index
