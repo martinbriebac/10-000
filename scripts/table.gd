@@ -1,7 +1,7 @@
 extends Node2D
 
 var rng = RandomNumberGenerator.new()
-var dice_values: Array[int] = []
+var dice_values = []
 var players: Array[Player] = []
 var current_player_index = 0
 var throw_score = 0
@@ -10,6 +10,7 @@ var hot_dice = false
 var turn_score = 0
 var dice_instances = []
 var rolls_completed = 0
+var dice_scene = preload("res://scenes/die.tscn")
 
 const TARGET_SCORE = 10000
 const INITIAL_THRESHOLD = 750
@@ -33,13 +34,14 @@ func _ready():
 	$KeepScoreButton.hide()
 	setup_game()
 	
-	# Create dice instances
+	# Create dice instances but keep them invisible
 	for i in range(6):
 		var die = preload("res://scenes/die.tscn").instantiate()
 		die.position = get_node("DiePosition" + str(i+1)).position
 		add_child(die)
 		dice_instances.append(die)
 		die.connect("roll_completed", Callable(self, "_on_die_roll_completed"))
+		die.visible = false # Start with dice invisible
 
 
 func _unhandled_input(event):
@@ -75,14 +77,18 @@ func throw_dice():
 	rolls_completed = 0
 	
 	for i in range(available_dice):
-		var roll_value = rng.randi_range(1, 6)
+		var die = dice_instances[i]
+		die.visible = true
+		var roll_value = randi_range(1, 6)
 		dice_values.append(roll_value)
-		dice_instances[i].roll(roll_value)
-		dice_instances[i].visible = true
+		die.start_rolling(roll_value)
 	
 	# Hide unused dice
 	for i in range(available_dice, 6):
 		dice_instances[i].visible = false
+	
+	# Disable throw button during roll
+	$ThrowButton.disabled = true
 	
 
 func _on_dice_roll_completed():
@@ -110,9 +116,13 @@ func _on_dice_roll_completed():
 			if hot_dice:
 				$HotDiceSprite.show()
 				print("Hot dice! You can throw all 6 dice again!")
-		
-		# Show the throw button again
-		$ThrowButton.show()
+			
+		# Re-enable throw button if there are available dice
+		if available_dice > 0:
+			$ThrowButton.disabled = false
+			$ThrowButton.show()
+		else:
+			$ThrowButton.hide()
 		
 		update_display()
 
@@ -145,7 +155,6 @@ func _on_KeepScoreButton_pressed():
 	else:
 		end_turn(false)
 
-
 func calculate_score():
 	@warning_ignore("shadowed_variable")
 	var throw_score = 0
@@ -162,7 +171,7 @@ func calculate_score():
 	for value in dice_values:
 		if value < 1 or value > 6:
 			printerr("Invalid dice value: " + str(value))
-			return 0
+			return [0, false]
 		counts[value - 1] += 1
 
 	# Check for instant win (all six dice with the same number)
@@ -214,7 +223,6 @@ func calculate_score():
 	else:
 		available_dice -= scoring_dice
 		if available_dice < 0:
-			print("Error: Available dice calculation resulted in a negative number")
 			available_dice = 6
 		elif available_dice == 0:
 			available_dice = 6
@@ -224,7 +232,9 @@ func calculate_score():
 	if throw_score < 0:
 		print("Error: Negative throw score calculated")
 		return [0, false]
-
+	
+	print("Throw score: ", throw_score, " Available dice: ", available_dice, " Hot dice: ", hot_dice)
+	
 	return [throw_score, instant_win]
 
 func update_display():
@@ -249,14 +259,12 @@ func update_display():
 	$ScoresLabel.text = scores_text
 	
 	# Update dice visuals
-	var dice_count = min(dice_instances.size(), 6)  # Ensure we don't exceed the number of actual dice instances
-	for i in range(dice_count):
+	for i in range(dice_instances.size()):
 		if i < dice_values.size():
-			if dice_instances[i]:
-				dice_instances[i].visible = true
-				if dice_instances[i].has_node("Sprite2D") and dice_instances[i].dice_faces.size() > dice_values[i] - 1:
-					dice_instances[i].get_node("Sprite2D").texture = dice_instances[i].dice_faces[dice_values[i] - 1]
-		elif dice_instances[i]:
+			dice_instances[i].visible = true
+			dice_instances[i].current_face = dice_values[i] - 1
+			dice_instances[i].get_node("die_face").texture = dice_instances[i].dice_faces[dice_instances[i].current_face]
+		else:
 			dice_instances[i].visible = false
 
 func end_turn(busted: bool):
@@ -274,10 +282,18 @@ func end_turn(busted: bool):
 	hot_dice = false
 	$KeepScoreButton.hide()
 	$HotDiceSprite.hide()
+	
+	# Hide all dice at the end of the turn
+	for die in dice_instances:
+		die.visible = false
 
 	if not players.is_empty():
 		current_player_index = (current_player_index + 1) % players.size()
 	update_display()
+	
+	# Show throw button for the next player
+	$ThrowButton.disabled = false
+	$ThrowButton.show()
 
 func end_game(instant_win: bool = false):
 	if players.is_empty():

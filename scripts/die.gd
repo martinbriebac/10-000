@@ -4,9 +4,9 @@ var dice_faces = []
 var current_face = 0
 var is_rolling = false
 var roll_speed = 0.05
-var roll_duration = 1.0
+var roll_duration = 2.0
 var roll_timer = 0.0
-var rotation_speed = 5.0 # Rotation speed in radians per second
+var final_value = 1
 
 signal roll_completed(value)
 
@@ -21,16 +21,24 @@ func _ready():
 func _process(delta):
 	if is_rolling:
 		roll_timer += delta
-		if roll_timer >= roll_speed:
-			roll_timer = 0
+		if roll_timer < roll_speed:
+			# Change face rapidly during rolling
 			current_face = (current_face+1) % 6
 			$die_face.texture = dice_faces[current_face]
+		else:
+			# Stop at the final value
+			stop_rolling()
 		
-		if roll_timer >= roll_duration:
-			is_rolling = false
-			emit_signal("roll_completed", current_face + 1)
 
-func roll(final_value):
+func start_rolling(value):
 	is_rolling = true
 	roll_timer = 0.0
-	current_face = final_value - 1   # Adjust for 0-based array index
+	final_value = value
+
+func stop_rolling():
+	is_rolling = false
+	current_face = final_value - 1
+	$die_face.texture = dice_faces[current_face]
+
+func get_value():
+	return current_face + 1
