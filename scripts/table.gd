@@ -65,7 +65,8 @@ func _on_ThrowButton_pressed():
 	if players.is_empty():
 		printerr("Game not properly set up. Please set up the game first.")
 		return
-
+	
+	$DiceLabel.hide()
 	throw_dice()
 	$NeedMorePoints.hide()
 	# Hide the throw button during animation
@@ -93,6 +94,7 @@ func throw_dice():
 
 func _on_dice_roll_completed():
 	rolls_completed += 1
+	print("Die completed rolling. Rolls complited: ", rolls_completed)
 	
 	# Check if all dice have finished rolling
 	if rolls_completed == available_dice:
@@ -121,10 +123,16 @@ func _on_dice_roll_completed():
 		if available_dice > 0:
 			$ThrowButton.disabled = false
 			$ThrowButton.show()
+			print("Throw button re-enabled and shown")
 		else:
 			$ThrowButton.hide()
+			print("Throw button hidden")
 		
+		$KeepScoreButton.show()
+		print("Keep Score Button shown")
 		update_display()
+		print("Display updated")
+		
 
 func _on_KeepScoreButton_pressed():
 	if players.is_empty() or current_player_index >= players.size():

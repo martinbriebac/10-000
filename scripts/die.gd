@@ -8,7 +8,7 @@ var roll_duration = 2.0
 var roll_timer = 0.0
 var final_value = 1
 
-signal roll_completed(value)
+signal roll_completed
 
 func _ready():
 	# Load dice face textures
@@ -39,6 +39,7 @@ func stop_rolling():
 	is_rolling = false
 	current_face = final_value - 1
 	$die_face.texture = dice_faces[current_face]
+	emit_signal("roll_completed") # Emit the signal when rolling stops
 
 func get_value():
 	return current_face + 1
