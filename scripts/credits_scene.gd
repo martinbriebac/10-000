@@ -6,6 +6,7 @@ func _ready():
 	tween.tween_property(self, "modulate:a", 1, 1).set_ease(Tween.EASE_IN_OUT)
 	tween.play()
 	
+	$Back.disconnect("pressed", Callable(self, "_on_back_pressed"))
 	$Back.connect("pressed", Callable(self, "_on_back_pressed"))
 
 

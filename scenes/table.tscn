@@ -25,7 +25,6 @@ max_value = 4.0
 value = 2.0
 
 [node name="DiceLabel" type="Label" parent="."]
-visible = false
 offset_left = 283.0
 offset_top = 306.0
 offset_right = 357.0
