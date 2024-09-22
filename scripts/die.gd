@@ -21,7 +21,7 @@ func _ready():
 func _process(delta):
 	if is_rolling:
 		roll_timer += delta
-		if roll_timer < roll_speed:
+		if roll_timer < roll_duration:
 			# Change face rapidly during rolling
 			current_face = (current_face+1) % 6
 			$die_face.texture = dice_faces[current_face]
@@ -32,18 +32,24 @@ func _process(delta):
 		
 
 func start_rolling(value):
-	print("Die starting to roll, target value: ", value)
 	is_rolling = true
 	roll_timer = 0.0
 	final_value = value
+	print("Die starting to roll, target value: ", value)
 
 func stop_rolling():
-	print("Die finished rolling, final value: ", final_value)
 	is_rolling = false
 	current_face = final_value - 1
 	$die_face.texture = dice_faces[current_face]
-	print("Emitting roll_completed signal")
+	print("Die finished rolling, final value: ", final_value)
 	emit_signal("roll_completed") # Emit the signal when rolling stops
+	print("Emitting roll_completed signal")
 
 func get_value():
 	return current_face + 1
+
+func highlight_as_scoring():
+	modulate = Color(1, 0.5, 0.5) # Light red tint
+
+func remove_highlight():
+	modulate = Color(1, 1, 1) # Reset to normal color

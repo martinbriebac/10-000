@@ -223,13 +223,17 @@ func calculate_score():
 					throw_score += 500 * pow(2, counts[i] - 3)
 				else:
 					throw_score += (i +1) * 100 * pow(2, counts[i] - 3)
-				scoring_dice += counts[i]
+				for j in range(counts[i]):
+					scoring_dice.append(dice_values.find(i + 1, scoring_dice.size()))
 	
 	# Add points for single 1s and 5s
-	if not special_rule:
-		throw_score += (counts[0] % 3) * 100
-		throw_score += (counts[4] % 3) * 50
-		scoring_dice += (counts[0] % 3) + (counts[4] % 3)
+		for i in range(dice_values.size()):
+			if dice_values[i] ==1 and i not in scoring_dice:
+				throw_score += 100
+				scoring_dice.append(i)
+			elif dice_values[i] == 5 and i not in scoring_dice:
+				throw_score += 50
+				scoring_dice.apend(i)
 	
 	# Hot dice logic
 	hot_dice = (scoring_dice == available_dice)
@@ -237,7 +241,7 @@ func calculate_score():
 	if hot_dice:
 		available_dice = 6
 	else:
-		available_dice -= scoring_dice
+		available_dice -= scoring_dice.size()
 		if available_dice < 0:
 			available_dice = 6
 		elif available_dice == 0:
@@ -251,7 +255,18 @@ func calculate_score():
 	
 	print("Throw score: ", throw_score, " Available dice: ", available_dice, " Hot dice: ", hot_dice)
 	
+	# Highlight scoring dice
+	highlight_scoring_dice(scoring_dice)
+	
 	return [throw_score, instant_win]
+	
+
+func highlight_scoring_dice(scoring_dice):
+	for i in range(dice_instances.size()):
+		for j in scoring_dice:
+			dice_instances[i].highlight_as_scoring()
+			else:
+			dice_instances[i].remove_highlight()
 
 func update_display():
 	if dice_values.is_empty():
