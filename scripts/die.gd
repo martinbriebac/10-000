@@ -47,9 +47,3 @@ func stop_rolling():
 
 func get_value():
 	return current_face + 1
-
-func highlight_as_scoring():
-	modulate = Color(1, 0.5, 0.5) # Light red tint
-
-func remove_highlight():
-	modulate = Color(1, 1, 1) # Reset to normal color

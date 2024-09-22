@@ -71,7 +71,6 @@ func _on_ThrowButton_pressed():
 	$DiceLabel.hide()
 	throw_dice()
 	$NeedMorePoints.hide()
-	# Hide the throw button during animation
 	$ThrowButton.hide()
 	$KeepScoreButton.hide()
 
@@ -97,7 +96,7 @@ func throw_dice():
 	
 
 func _on_dice_roll_completed(die_index):
-	print("Die ", die_index)
+	print("Die ", die_index, " roll completed")
 	rolls_completed += 1
 	print("Rolls completed: ", rolls_completed, " / ", available_dice)
 	
@@ -175,7 +174,7 @@ func calculate_score():
 	@warning_ignore("shadowed_variable")
 	var throw_score = 0
 	var counts = [0, 0, 0, 0, 0, 0]
-	var scoring_dice = 0
+	var scoring_dice = []
 	var instant_win = false
 	var special_rule = false # Flag for 1500-point rules
 	
@@ -200,17 +199,17 @@ func calculate_score():
 	if counts.has(2) and counts.count(2) == 3:
 		# Three pairs
 		throw_score = 1500
-		scoring_dice = 6
+		scoring_dice = range(6)
 		special_rule = true
 	elif counts.has(4) and counts.has(2):
 		# Four of a kind plus a pair
 		throw_score = 1500
-		scoring_dice = 6
+		scoring_dice = range(6)
 		special_rule = true
 	elif counts == [1, 1, 1, 1, 1, 1]:
 		# Straight from 1 to 6
 		throw_score = 1500
-		scoring_dice = 6
+		scoring_dice = range(6)
 		special_rule = true
 	
 	# If no special rule is active, proceed with normal scoring
@@ -233,10 +232,10 @@ func calculate_score():
 				scoring_dice.append(i)
 			elif dice_values[i] == 5 and i not in scoring_dice:
 				throw_score += 50
-				scoring_dice.apend(i)
+				scoring_dice.append(i)
 	
 	# Hot dice logic
-	hot_dice = (scoring_dice == available_dice)
+	hot_dice = (scoring_dice.size() == available_dice)
 
 	if hot_dice:
 		available_dice = 6
@@ -255,18 +254,8 @@ func calculate_score():
 	
 	print("Throw score: ", throw_score, " Available dice: ", available_dice, " Hot dice: ", hot_dice)
 	
-	# Highlight scoring dice
-	highlight_scoring_dice(scoring_dice)
+	return [throw_score, instant_win, scoring_dice]
 	
-	return [throw_score, instant_win]
-	
-
-func highlight_scoring_dice(scoring_dice):
-	for i in range(dice_instances.size()):
-		for j in scoring_dice:
-			dice_instances[i].highlight_as_scoring()
-			else:
-			dice_instances[i].remove_highlight()
 
 func update_display():
 	if dice_values.is_empty():
