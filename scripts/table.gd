@@ -41,8 +41,9 @@ func _ready():
 		add_child(die)
 		dice_instances.append(die)
 		die.connect("roll_completed", Callable(self, "_on_die_roll_completed"))
+		var connection_result = die.connect("roll_completed", func(): _on_dice_roll_completed(i))
+		print("Die ", i, " signal connection result: ", connection_result)
 		die.visible = false # Start with dice invisible
-
 
 func _unhandled_input(event):
 	if event.is_action_pressed("throw_dice") and $ThrowButton.visible:
@@ -62,6 +63,7 @@ func setup_game():
 	update_display()
 
 func _on_ThrowButton_pressed():
+	print("Throw button pressed, initiating dice roll")
 	if players.is_empty():
 		printerr("Game not properly set up. Please set up the game first.")
 		return
@@ -84,6 +86,8 @@ func throw_dice():
 		dice_values.append(roll_value)
 		die.start_rolling(roll_value)
 	
+	print("Dice values set: ", dice_values)
+	
 	# Hide unused dice
 	for i in range(available_dice, 6):
 		dice_instances[i].visible = false
@@ -92,13 +96,14 @@ func throw_dice():
 	$ThrowButton.disabled = true
 	
 
-func _on_dice_roll_completed():
+func _on_dice_roll_completed(die_index):
+	print("Die ", die_index)
 	rolls_completed += 1
-	print("Die completed rolling. Rolls complited: ", rolls_completed)
+	print("Rolls complited: ", rolls_completed, " / ", available_dice)
 	
 	# Check if all dice have finished rolling
 	if rolls_completed == available_dice:
-		print("Dice rolled: " + str(dice_values))
+		print("All diuce have finished rolling. Dice values: ", dice_values)
 		var result = calculate_score()
 		throw_score = result[0]
 		var instant_win = result[1]
@@ -132,7 +137,9 @@ func _on_dice_roll_completed():
 		print("Keep Score Button shown")
 		update_display()
 		print("Display updated")
-		
+	
+	else:
+		print("Waiting for more dice to complete rolling")
 
 func _on_KeepScoreButton_pressed():
 	if players.is_empty() or current_player_index >= players.size():
@@ -164,6 +171,7 @@ func _on_KeepScoreButton_pressed():
 		end_turn(false)
 
 func calculate_score():
+	print("Calculating score for dice values: ", dice_values)
 	@warning_ignore("shadowed_variable")
 	var throw_score = 0
 	var counts = [0, 0, 0, 0, 0, 0]
@@ -274,6 +282,8 @@ func update_display():
 			dice_instances[i].get_node("die_face").texture = dice_instances[i].dice_faces[dice_instances[i].current_face]
 		else:
 			dice_instances[i].visible = false
+	
+	print("Game state updated - current player: ", players[current_player_index].name, " Turn score: ", turn_score, " Available dice: ", available_dice)
 
 func end_turn(busted: bool):
 	if busted:
