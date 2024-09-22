@@ -99,11 +99,11 @@ func throw_dice():
 func _on_dice_roll_completed(die_index):
 	print("Die ", die_index)
 	rolls_completed += 1
-	print("Rolls complited: ", rolls_completed, " / ", available_dice)
+	print("Rolls completed: ", rolls_completed, " / ", available_dice)
 	
 	# Check if all dice have finished rolling
 	if rolls_completed == available_dice:
-		print("All diuce have finished rolling. Dice values: ", dice_values)
+		print("All dice have finished rolling. Dice values: ", dice_values)
 		var result = calculate_score()
 		throw_score = result[0]
 		var instant_win = result[1]
