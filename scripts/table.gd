@@ -201,8 +201,8 @@ func calculate_score():
 		throw_score = 1500
 		scoring_dice = range(6)
 		special_rule = true
-	elif counts.has(4) and counts.has(2):
-		# Four of a kind plus a pair
+	elif counts.has(3) and counts.count(3) == 2:
+		# Two triplets
 		throw_score = 1500
 		scoring_dice = range(6)
 		special_rule = true
@@ -218,8 +218,6 @@ func calculate_score():
 			if counts[i] >= 3:
 				if i == 0:  # Special case for 1s
 					throw_score += 1000 * pow(2, counts[i] - 3)
-				elif i == 4: # Special case for 5s
-					throw_score += 500 * pow(2, counts[i] - 3)
 				else:
 					throw_score += (i +1) * 100 * pow(2, counts[i] - 3)
 				for j in range(counts[i]):

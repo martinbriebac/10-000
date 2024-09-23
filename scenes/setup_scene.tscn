@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://jtp8mj5j3bfu"]
+[gd_scene load_steps=4 format=3 uid="uid://jtp8mj5j3bfu"]
 
 [ext_resource type="Script" path="res://scripts/setup_scene.gd" id="1_eqidk"]
 [ext_resource type="Texture2D" uid="uid://cr8vus0nkyqw1" path="res://art/hot_dice.png" id="2_6ynfx"]
+[ext_resource type="Texture2D" uid="uid://cbmgas5f1uie5" path="res://art/table.png" id="2_v8jmm"]
 
 [node name="Setup_scene" type="Control"]
 layout_mode = 3
@@ -9,6 +10,10 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_eqidk")
+
+[node name="Table" type="Sprite2D" parent="."]
+position = Vector2(575, 325)
+texture = ExtResource("2_v8jmm")
 
 [node name="StartButton" type="Button" parent="."]
 layout_mode = 0

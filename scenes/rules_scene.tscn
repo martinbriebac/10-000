@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://buyu30x7g4d8w"]
+[gd_scene load_steps=3 format=3 uid="uid://buyu30x7g4d8w"]
 
 [ext_resource type="Script" path="res://scenes/rules_scene.gd" id="1_ctwoj"]
+[ext_resource type="Texture2D" uid="uid://cbmgas5f1uie5" path="res://art/table.png" id="2_rr2bk"]
 
 [node name="Rules_scene" type="Control"]
 layout_mode = 3
@@ -8,6 +9,10 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_ctwoj")
+
+[node name="Table" type="Sprite2D" parent="."]
+position = Vector2(575, 325)
+texture = ExtResource("2_rr2bk")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
@@ -19,18 +24,55 @@ text = "RULES TITLE"
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 layout_mode = 0
-offset_left = 162.0
-offset_top = 94.0
-offset_right = 892.0
-offset_bottom = 450.0
-text = "RULES BODY"
+offset_left = 27.0
+offset_top = 86.0
+offset_right = 559.0
+offset_bottom = 508.0
+text = "Objective
+The goal is to be the first player to score 10,000 points or more. Players take turns rolling dice and scoring points based on certain combinations.
+
+On Your Turn
+Roll all six dice.
+After each roll, you must set aside at least one scoring die or combination.
+You may then choose to:
+a) End your turn and bank your points, or
+b) Re-roll the remaining dice to try and score more points.
+
+Continuing Your Turn
+If you've set aside all six dice as scoring dice, you may pick them all up and roll again. You got Hot Dice!
+If you roll and cannot set aside any scoring dice, you lose all points accumulated during that turn, and play passes to the next player."
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 572.0
+offset_top = 82.0
+offset_right = 1114.0
+offset_bottom = 587.0
+text = "Scoring
+
+1 = 100 points
+5 = 50 points
+Three, four and five 1s = 1000  / 2000 / 3000 points
+Three, four and five 2s = 200 / 400 / 800 points
+Three, four and five 3s = 300 / 600 / 1200 points
+Three, four and five 4s = 400 / 800/ 1600 points
+Three , four and five 5s = 500 / 1000 / 2000 points
+Three, four and five 6s = 600 / 1200 / 2400 points
+1-6 straight = 1500 points
+Three pairs = 1500 points
+Two triplets = 1500 points
+Six of any number = Instant win
+
+Getting \"On the Board\"
+To start scoring, a player must get at least 750 points in a single turn.
+Until a player is \"on the board,\" they can't bank any points."
 
 [node name="Back" type="Button" parent="."]
 layout_mode = 0
-offset_left = 502.0
-offset_top = 500.0
-offset_right = 584.0
-offset_bottom = 565.0
+offset_left = 499.0
+offset_top = 522.0
+offset_right = 581.0
+offset_bottom = 587.0
 text = "BACK"
 
 [connection signal="pressed" from="Back" to="." method="_on_back_pressed"]
