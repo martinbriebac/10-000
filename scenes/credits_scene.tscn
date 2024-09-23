@@ -11,16 +11,16 @@ script = ExtResource("1_w5ei8")
 layout_mode = 0
 offset_left = 472.0
 offset_top = 196.0
-offset_right = 1375.0
-offset_bottom = 761.0
+offset_right = 564.0
+offset_bottom = 232.0
 text = "Credits"
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 layout_mode = 0
 offset_left = 410.0
 offset_top = 286.0
-offset_right = 990.0
-offset_bottom = 694.0
+offset_right = 702.0
+offset_bottom = 399.0
 text = "Game developed by loco_piola
 Art by loco_piola
 Music by loco_piola
@@ -33,7 +33,5 @@ offset_top = 426.0
 offset_right = 520.0
 offset_bottom = 457.0
 text = "Back"
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [connection signal="pressed" from="Back" to="." method="_on_back_pressed"]

@@ -26,9 +26,19 @@ offset_right = 735.0
 offset_bottom = 535.0
 text = "CREDITS"
 
+[node name="Rules" type="Button" parent="."]
+layout_mode = 0
+offset_left = 528.0
+offset_top = 476.0
+offset_right = 609.0
+offset_bottom = 537.0
+text = "RULES"
+
 [node name="HotDice" type="Sprite2D" parent="."]
-position = Vector2(562, 330)
+position = Vector2(548, 261)
+scale = Vector2(2.22, 2.22)
 texture = ExtResource("2_6ynfx")
 
 [connection signal="pressed" from="StartButton" to="." method="_on_StartGameButton_pressed"]
 [connection signal="pressed" from="ShowCredits" to="." method="_on_CreditsButton_pressed"]
+[connection signal="pressed" from="Rules" to="." method="_on_RulesButton_pressed"]
