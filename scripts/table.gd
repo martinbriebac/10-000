@@ -311,6 +311,7 @@ func end_turn(busted: bool):
 
 	if not players.is_empty():
 		current_player_index = (current_player_index + 1) % players.size()
+	
 	update_display()
 	
 	# Show throw button for the next player

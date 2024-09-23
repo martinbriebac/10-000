@@ -9,21 +9,11 @@ func _ready() -> void:
 	var viewport = get_viewport()
 	viewport.set_size(Vector2(2300, 1295))
 	
-	# Initialize the number of players dropdown
-	$NumPlayersOptionButton.add_item("1 Player")
-	$NumPlayersOptionButton.add_item("2 Players")
-	$NumPlayersOptionButton.add_item("3 Players")
-	$NumPlayersOptionButton.add_item("4 Players")
-	$NumPlayersOptionButton.select(0)
-
-	# Initialize the music volume slider
-	$MusicVolumeHSlider.value = music_volume
-
 	# Disconnect the button to the function
 	$StartButton.disconnect("pressed", Callable(self, "_on_StartGameButton_pressed"))	
 	# Connect the button to the function
 	$StartButton.connect("pressed", Callable(self, "_on_StartGameButton_pressed"))
-
+	
 	# Disconnect the button to the function
 	$ShowCredits.disconnect("pressed", Callable(self, "_on_CreditsButton_pressed"))
 	# Connect the button to the function
