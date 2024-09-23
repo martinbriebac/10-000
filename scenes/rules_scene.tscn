@@ -24,10 +24,10 @@ text = "RULES / INSTRUCTIONS"
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 layout_mode = 0
-offset_left = 27.0
-offset_top = 86.0
-offset_right = 559.0
-offset_bottom = 508.0
+offset_left = 52.0
+offset_top = 89.0
+offset_right = 584.0
+offset_bottom = 511.0
 text = "Objective
 The goal is to be the first player to score 10,000 points or more. Players take turns rolling dice and scoring points based on certain combinations.
 
@@ -44,15 +44,15 @@ If you roll and cannot set aside any scoring dice, you lose all points accumulat
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="."]
 layout_mode = 0
-offset_left = 572.0
-offset_top = 82.0
-offset_right = 1114.0
-offset_bottom = 587.0
+offset_left = 603.0
+offset_top = 90.0
+offset_right = 1136.0
+offset_bottom = 595.0
 text = "Scoring
 
 1 = 100 points
 5 = 50 points
-Three, four and five 1s = 1000  / 2000 / 3000 points
+Three, four and five 1s = 1000  / 2000 / 4000 points
 Three, four and five 2s = 200 / 400 / 800 points
 Three, four and five 3s = 300 / 600 / 1200 points
 Three, four and five 4s = 400 / 800/ 1600 points

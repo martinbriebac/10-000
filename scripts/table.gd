@@ -41,8 +41,7 @@ func _ready():
 		add_child(die)
 		dice_instances.append(die)
 		die.connect("roll_completed", Callable(self, "_on_die_roll_completed"))
-		var connection_result = die.connect("roll_completed", func(): _on_dice_roll_completed(i))
-		print("Die ", i, " signal connection result: ", connection_result)
+		var _connection_result = die.connect("roll_completed", func(): _on_dice_roll_completed(i))
 		die.visible = false # Start with dice invisible
 
 func _unhandled_input(event):
@@ -63,7 +62,6 @@ func setup_game():
 	update_display()
 
 func _on_ThrowButton_pressed():
-	print("Throw button pressed, initiating dice roll")
 	if players.is_empty():
 		printerr("Game not properly set up. Please set up the game first.")
 		return
@@ -85,8 +83,6 @@ func throw_dice():
 		dice_values.append(roll_value)
 		die.start_rolling(roll_value)
 	
-	print("Dice values set: ", dice_values)
-	
 	# Hide unused dice
 	for i in range(available_dice, 6):
 		dice_instances[i].visible = false
@@ -95,10 +91,9 @@ func throw_dice():
 	$ThrowButton.disabled = true
 	
 
+@warning_ignore("unused_parameter")
 func _on_dice_roll_completed(die_index):
-	print("Die ", die_index, " roll completed")
 	rolls_completed += 1
-	print("Rolls completed: ", rolls_completed, " / ", available_dice)
 	
 	# Check if all dice have finished rolling
 	if rolls_completed == available_dice:
@@ -106,7 +101,6 @@ func _on_dice_roll_completed(die_index):
 		var result = calculate_score()
 		throw_score = result[0]
 		var instant_win = result[1]
-		print("Throw score: " + str(throw_score))
 	
 		if instant_win:
 			print("Instant win! " + players[current_player_index].name + " rolled six of a kind!")
@@ -127,18 +121,11 @@ func _on_dice_roll_completed(die_index):
 		if available_dice > 0:
 			$ThrowButton.disabled = false
 			$ThrowButton.show()
-			print("Throw button re-enabled and shown")
 		else:
 			$ThrowButton.hide()
-			print("Throw button hidden")
 		
 		$KeepScoreButton.show()
-		print("Keep Score Button shown")
 		update_display()
-		print("Display updated")
-	
-	else:
-		print("Waiting for more dice to complete rolling")
 
 func _on_KeepScoreButton_pressed():
 	if players.is_empty() or current_player_index >= players.size():
@@ -170,7 +157,6 @@ func _on_KeepScoreButton_pressed():
 		end_turn(false)
 
 func calculate_score():
-	print("Calculating score for dice values: ", dice_values)
 	@warning_ignore("shadowed_variable")
 	var throw_score = 0
 	var counts = [0, 0, 0, 0, 0, 0]

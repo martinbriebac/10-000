@@ -27,7 +27,6 @@ func _process(delta):
 			$die_face.texture = dice_faces[current_face]
 		else:
 			# Stop at the final value
-			print("Die roll duration exceeded, stopping roll")
 			stop_rolling()
 		
 
@@ -35,15 +34,12 @@ func start_rolling(value):
 	is_rolling = true
 	roll_timer = 0.0
 	final_value = value
-	print("Die starting to roll, target value: ", value)
 
 func stop_rolling():
 	is_rolling = false
 	current_face = final_value - 1
 	$die_face.texture = dice_faces[current_face]
-	print("Die finished rolling, final value: ", final_value)
 	emit_signal("roll_completed") # Emit the signal when rolling stops
-	print("Emitting roll_completed signal")
 
 func get_value():
 	return current_face + 1
