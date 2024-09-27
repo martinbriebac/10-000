@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://buyu30x7g4d8w"]
 
-[ext_resource type="Script" path="res://scenes/rules_scene.gd" id="1_ctwoj"]
+[ext_resource type="Script" path="res://scripts/rules_scene.gd" id="1_ctwoj"]
 [ext_resource type="Texture2D" uid="uid://cbmgas5f1uie5" path="res://art/table.png" id="2_rr2bk"]
 
 [node name="Rules_scene" type="Control"]

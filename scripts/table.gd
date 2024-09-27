@@ -28,6 +28,22 @@ class Player:
 		on_scoreboard = false
 
 func _ready():
+	
+	# Set the window size
+	get_window().size = Vector2(1280, 720)
+	
+	# Center the window on the screen
+	var screen_size = DisplayServer.screen_get_size()
+	var window_size = get_window().size
+	get_window().position = (screen_size - window_size) / 2
+	
+	# Set content scaling mode
+	get_window().content_scale_mode = Window.CONTENT_SCALE_MODE_CANVAS_ITEMS
+	get_window().content_scale_aspect = Window.CONTENT_SCALE_ASPECT_KEEP
+	get_window().content_scale_size = Vector2i(1280, 720)
+	
+	get_window().size_changed.connect(_on_window_size_changed)
+	
 	rng.randomize()
 	$ThrowButton.pressed.connect(_on_ThrowButton_pressed)
 	$KeepScoreButton.pressed.connect(_on_KeepScoreButton_pressed)
@@ -43,6 +59,12 @@ func _ready():
 		die.connect("roll_completed", Callable(self, "_on_die_roll_completed"))
 		var _connection_result = die.connect("roll_completed", func(): _on_dice_roll_completed(i))
 		die.visible = false # Start with dice invisible
+
+func _on_window_size_changed():
+	var new_size = get_window().size
+	var scale = min(new_size.x / 1280.0, new_size.y / 720.0)
+	get_window().content_scale_size = Vector2i(1280, 720)
+	get_window().content_scale_factor = scale
 
 func _unhandled_input(event):
 	if event.is_action_pressed("throw_dice") and $ThrowButton.visible:

@@ -10,8 +10,8 @@
 script = ExtResource("1_0jurv")
 
 [node name="Table" type="Sprite2D" parent="."]
-position = Vector2(575.5, 324)
-scale = Vector2(1.00087, 0.996923)
+position = Vector2(641, 358.5)
+scale = Vector2(1.11478, 1.10308)
 texture = ExtResource("2_mddhc")
 
 [node name="NumPlayersSpinBox" type="SpinBox" parent="."]
@@ -25,10 +25,10 @@ max_value = 4.0
 value = 2.0
 
 [node name="DiceLabel" type="Label" parent="."]
-offset_left = 283.0
-offset_top = 306.0
-offset_right = 357.0
-offset_bottom = 329.0
+offset_left = 279.0
+offset_top = 327.0
+offset_right = 353.0
+offset_bottom = 350.0
 scale = Vector2(2, 2)
 text = "dice"
 horizontal_alignment = 1
@@ -54,10 +54,10 @@ horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="AvailableDiceLabel" type="Label" parent="."]
-offset_left = 410.0
-offset_top = 559.0
-offset_right = 515.0
-offset_bottom = 582.0
+offset_left = 392.0
+offset_top = 612.0
+offset_right = 497.0
+offset_bottom = 635.0
 scale = Vector2(2, 2)
 text = "available dice"
 
@@ -70,45 +70,46 @@ scale = Vector2(2, 2)
 text = "scores"
 
 [node name="ThrowButton" type="Button" parent="."]
-offset_left = 756.0
-offset_top = 503.0
-offset_right = 864.0
-offset_bottom = 611.0
+offset_left = 865.0
+offset_top = 546.0
+offset_right = 973.0
+offset_bottom = 654.0
 icon = ExtResource("3_lqvaw")
 
 [node name="KeepScoreButton" type="Button" parent="."]
-offset_left = 864.0
-offset_top = 503.0
-offset_right = 972.0
-offset_bottom = 611.0
+offset_left = 977.0
+offset_top = 545.0
+offset_right = 1085.0
+offset_bottom = 653.0
 icon = ExtResource("4_g4kqc")
 
 [node name="NeedMorePoints" type="RichTextLabel" parent="."]
-offset_left = 329.0
-offset_top = 434.0
-offset_right = 517.0
-offset_bottom = 510.0
+offset_left = 364.0
+offset_top = 506.0
+offset_right = 552.0
+offset_bottom = 582.0
 scale = Vector2(2, 2)
 text = "You need 750 points to get on the score board!"
 
 [node name="HotDiceSprite" type="Sprite2D" parent="."]
-position = Vector2(1019, 310)
+position = Vector2(1086, 278)
+scale = Vector2(1.57333, 1.42949)
 texture = ExtResource("5_76pr5")
 
 [node name="DiePosition1" type="Node2D" parent="."]
-position = Vector2(421, 316)
+position = Vector2(467, 341)
 
 [node name="DiePosition2" type="Node2D" parent="."]
-position = Vector2(468, 378)
+position = Vector2(511, 424)
 
 [node name="DiePosition3" type="Node2D" parent="."]
-position = Vector2(528, 316)
+position = Vector2(573, 336)
 
 [node name="DiePosition4" type="Node2D" parent="."]
-position = Vector2(593, 380)
+position = Vector2(625, 427)
 
 [node name="DiePosition5" type="Node2D" parent="."]
-position = Vector2(641, 314)
+position = Vector2(682, 338)
 
 [node name="DiePosition6" type="Node2D" parent="."]
-position = Vector2(717, 380)
+position = Vector2(751, 431)
